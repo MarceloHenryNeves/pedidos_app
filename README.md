@@ -1,150 +1,132 @@
-# Restaurant App - Sistema de Pedidos para Tablets
+# 📱 Restaurant Order App
 
-Um aplicativo Flutter para gerenciamento de pedidos em restaurantes/cafeterias, onde cada mesa possui um tablet para realizar pedidos de forma independente.
+Um aplicativo completo de pedidos para restaurantes, cafeterias e lanchonetes desenvolvido em **Flutter** com **Firebase**, onde cada mesa possui um tablet para realizar pedidos de forma independente.
 
-## 📱 Funcionalidades
+## 🚀 Funcionalidades Principais
 
-### ✅ Implementadas
-- **Seleção de Mesas**: Interface para escolher e gerenciar mesas
-- **Cardápio Digital**: Visualização de produtos organizados por categorias
-- **Carrinho de Compras**: Adicionar, editar e remover itens do pedido
-- **Acúmulo de Pedidos**: Valores se acumulam por mesa até o pagamento
-- **Sincronização em Tempo Real**: Dados sincronizados via Firebase Firestore
-- **Interface Otimizada para Tablets**: Layout responsivo e intuitivo
+- **🪑 Gestão de Mesas**: Sistema de seleção e controle de mesas com status em tempo real
+- **📱 Interface para Tablets**: Interface otimizada especificamente para tablets
+- **🛒 Carrinho por Mesa**: Cada mesa mantém seu próprio carrinho de compras
+- **💰 Acúmulo de Valores**: Os pedidos se acumulam até o momento do pagamento
+- **🔄 Sincronização em Tempo Real**: Todos os dados sincronizados via Firebase Firestore
+- **🍕 Gestão de Produtos**: Sistema completo de categorias e produtos
+- **💳 Sistema de Pagamento**: Reset automático da mesa após pagamento confirmado
 
-### 🚧 Próximas Funcionalidades
-- Upload de imagens para produtos
-- Relatórios de vendas
-- Sistema de impressão
-- Modo administrativo
-- Integração com formas de pagamento
+## 🛠️ Tecnologias Utilizadas
 
-## 🏗️ Arquitetura
+- **Frontend**: Flutter
+- **Backend**: Firebase (Firestore, Authentication, Storage)
+- **Gerenciamento de Estado**: Provider
+- **Banco de Dados**: Cloud Firestore (NoSQL)
 
-O projeto segue as melhores práticas de desenvolvimento Flutter:
+## 🏗️ Arquitetura do Projeto
 
 ```
 lib/
-├── main.dart              # Entrada da aplicação
-├── models/                # Modelos de dados
-├── services/              # Serviços Firebase
-├── providers/             # Gerenciamento de estado (Provider)
-├── screens/               # Telas da aplicação
-├── widgets/               # Widgets reutilizáveis
-├── utils/                 # Utilitários
-└── constants/             # Constantes da aplicação
+├── main.dart
+├── models/           # Modelos de dados (Table, Product, Order, etc.)
+├── services/         # Serviços Firebase (CRUD operations)
+├── providers/        # Gerenciamento de estado
+├── screens/          # Telas da aplicação
+├── widgets/          # Widgets reutilizáveis
+├── utils/            # Utilitários e helpers
+└── constants/        # Constantes da aplicação
 ```
 
-### Tecnologias Utilizadas
+## 📊 Estrutura de Dados
 
-- **Flutter 3.5+**: Framework de desenvolvimento
-- **Firebase Firestore**: Banco de dados em tempo real
-- **Provider**: Gerenciamento de estado
-- **Material Design 3**: Interface moderna e consistente
+### Coleções Firebase:
+- **tables**: Controle de mesas (número, status, valor acumulado)
+- **categories**: Categorias de produtos
+- **products**: Itens do cardápio
+- **orders**: Pedidos realizados
+- **order_items**: Itens individuais dos pedidos
 
-## 🚀 Instalação e Configuração
+## 🎯 Fluxo de Funcionamento
+
+1. **Seleção da Mesa**: Cliente seleciona mesa disponível no tablet
+2. **Navegação no Menu**: Explora categorias e produtos do cardápio
+3. **Adição ao Carrinho**: Adiciona itens desejados com quantidades
+4. **Confirmação do Pedido**: Confirma pedido que é adicionado ao total da mesa
+5. **Acúmulo**: Mesa acumula todos os pedidos até o pagamento
+6. **Pagamento**: Valor total é pago e mesa é liberada automaticamente
+
+## 🔧 Configuração e Instalação
 
 ### Pré-requisitos
+- Flutter SDK
+- Conta Firebase
+- Dispositivos tablet Android/iOS
 
-- Flutter SDK 3.5.4 ou superior
-- Dart SDK incluído no Flutter
-- Android Studio / VS Code
-- Conta no Firebase
+### Passos para Configuração
 
-### 1. Clone o Repositório
-
+1. **Clone o repositório**
 ```bash
-git clone <url-do-repositorio>
-cd restaurant_app
+git clone https://github.com/seu-usuario/restaurant-order-app.git
+cd restaurant-order-app
 ```
 
-### 2. Instalar Dependências
-
+2. **Instale as dependências**
 ```bash
 flutter pub get
 ```
 
-### 3. Configurar Firebase
+3. **Configure o Firebase**
+- Crie um projeto no Firebase Console
+- Adicione os arquivos de configuração (`google-services.json` para Android e `GoogleService-Info.plist` para iOS)
+- Configure as regras do Firestore
 
-Siga o guia detalhado em [FIREBASE_SETUP.md](FIREBASE_SETUP.md)
-
-### 4. Executar o Aplicativo
-
+4. **Execute o aplicativo**
 ```bash
 flutter run
 ```
 
-## 📊 Modelos de Dados
+## 📦 Principais Dependências
 
-### TableModel
-- Gerencia informações das mesas
-- Controla status (livre/ocupada) e valores acumulados
-
-### ProductModel & CategoryModel  
-- Estrutura do cardápio com categorias e produtos
-- Preços, descrições e imagens
-
-### OrderModel & OrderItemModel
-- Sistema completo de pedidos
-- Estados: carrinho → confirmado → pago
-
-## 🎯 Fluxo de Uso
-
-1. **Seleção de Mesa**: Usuário escolhe uma mesa disponível
-2. **Navegação do Cardápio**: Explora produtos por categoria
-3. **Adicionar ao Carrinho**: Seleciona produtos com quantidades e observações
-4. **Revisar Pedido**: Confirma itens e valor total no carrinho
-5. **Confirmar Pedido**: Pedido é enviado e valor acumulado na mesa
-6. **Acúmulo**: Novos pedidos somam ao total da mesa
-7. **Pagamento**: Mesa é liberada após processamento do pagamento
-
-## 🔧 Desenvolvimento
-
-### Comandos Úteis
-
-```bash
-# Análise de código
-flutter analyze
-
-# Formatação de código
-flutter format .
-
-# Testes
-flutter test
-
-# Build para produção
-flutter build apk --release
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^2.x.x
+  cloud_firestore: ^4.x.x
+  firebase_auth: ^4.x.x
+  provider: ^6.x.x
+  uuid: ^3.x.x
+  intl: ^0.18.x
+  shared_preferences: ^2.x.x
 ```
 
-### Estrutura de Providers
+## 🎨 Screenshots
 
-- **TableProvider**: Gerencia mesas e seleção
-- **ProductProvider**: Controla categorias e produtos  
-- **CartProvider**: Carrinho de compras da sessão
-- **OrderProvider**: Histórico e criação de pedidos
+[Adicione screenshots das principais telas aqui]
 
-## 📱 Screenshots
+## 🚀 Funcionalidades Futuras
 
-*Em breve - screenshots das principais telas*
+- 🖨️ Integração com impressora térmica
+- 📊 Dashboard administrativo
+- 🔔 Notificações push para cozinha
+- 📈 Relatórios de vendas
+- 🏢 Suporte multi-estabelecimento
+- 🎨 Temas customizáveis
 
 ## 🤝 Contribuição
 
 1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/nova-funcionalidade`)
-5. Crie um Pull Request
+2. Crie sua feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## 👥 Equipe
+## 📞 Contato
 
-Desenvolvido seguindo o guia detalhado do `restaurant_app_guide.md` com foco em boas práticas e arquitetura escalável.
+Seu Nome - [@seu_twitter](https://twitter.com/seu_twitter) - email@exemplo.com
+
+Link do Projeto: [https://github.com/seu-usuario/restaurant-order-app](https://github.com/seu-usuario/restaurant-order-app)
 
 ---
 
-**Versão**: 1.0.0  
-**Status**: Em desenvolvimento  
-**Plataforma**: Android (iOS em breve)
+⭐ **Não esqueça de dar uma estrela se este projeto foi útil para você!**
